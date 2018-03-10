@@ -1,3 +1,5 @@
+package task1;
+
 public class TaskFive {
     boolean b = true;
     byte by = 127;

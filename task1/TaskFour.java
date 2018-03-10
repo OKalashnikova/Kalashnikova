@@ -1,3 +1,5 @@
+package task1;
+
 public class TaskFour {
     double d1 = (double)Math.random()*100.00;
 

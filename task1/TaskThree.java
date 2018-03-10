@@ -1,3 +1,5 @@
+package task1;
+
 public class TaskThree {
     int n1 = (int) (Math.random()*50);
 

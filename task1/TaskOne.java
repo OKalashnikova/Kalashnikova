@@ -1,3 +1,5 @@
+package task1;
+
 public class TaskOne {
     int number1 = (int) (Math.random() * 100);
     int number2 = (int) (Math.random() * 100);
