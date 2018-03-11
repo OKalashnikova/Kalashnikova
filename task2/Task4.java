@@ -20,12 +20,16 @@ public class Task4 {
         return f;
     }
 
-    public int factorialRec(int i) {
+    public static int factorialRec(int i) {
         if (i == 1) {
             return 1;
         }if(i==0){
             return 0;
-        } else {
+        } if(i<0) {
+            System.out.println("Число отрицательное");
+            return i;
+        }else
+         {
             return i * factorialRec(i - 1);
         }
     }

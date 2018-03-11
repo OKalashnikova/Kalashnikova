@@ -22,12 +22,13 @@ public class Main2 {
         System.out.println();
         System.out.println("Задание 2");
         System.out.println("Массив заполнен такими числами: ");
-        task2.summa();
+        System.out.println("Сумма четных чисел равна " + task2.summaChisel(task2.createMassive(task2.getMass())));
 
         System.out.println();
         System.out.println("Задание 3");
         System.out.println("двумерный массив:");
-        task3.createMassive();
+        task3.showMassive(task3.createMassive(task3.getMassive()));
+
 
         System.out.println();
         System.out.println("Задание 4");
