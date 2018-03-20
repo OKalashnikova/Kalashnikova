@@ -1,6 +1,6 @@
 package task3;
 
-import java.lang.reflect.Array;
+
 
 public class ArrayCreator {
 

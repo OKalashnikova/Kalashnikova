@@ -1,22 +1,9 @@
 package task3;
 
 public class Dog extends Animal {
-    String name;
-    double age;
-    static int quantity;
 
-    public Dog (String name, double age) {
-        this.name = name;
-        this.age = age;
-        ++quantity;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getAge() {
-        return age;
+    public Dog(String name, double age) {
+        super(name, age);
     }
 
     @Override
@@ -28,9 +15,5 @@ public class Dog extends Animal {
     public String toString() {
         voice();
         return age + " " + name + " ";
-    }
-
-    public static  int getQuantity(){
-        return quantity;
     }
 }
