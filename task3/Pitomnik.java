@@ -2,7 +2,7 @@ package task3;
 
 public class Pitomnik {
     private Animal[] pitomnik = new Animal[6];
-    private static int i;
+    private int i;
 
     public int getSize() {
         return pitomnik.length;

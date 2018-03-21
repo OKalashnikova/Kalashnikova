@@ -27,4 +27,9 @@ public class Animal {
     public static int getQuantity() {
         return quantity;
     }
+
+    public String toString() {
+        voice();
+        return age + " " + name;
+    }
 }

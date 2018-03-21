@@ -11,9 +11,9 @@ public class Cat extends Animal {
         System.out.println("Мяу ");
     }
 
-    @Override
-    public String toString() {
-        voice();
-        return age + " " + name;
-    }
+//    @Override
+//    public String toString() {
+//        voice();
+//        return age + " " + name;
+//    }
 }
