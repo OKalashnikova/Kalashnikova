@@ -1,5 +1,6 @@
 import task3.*;
 
+import javax.xml.bind.SchemaOutputResolver;
 import java.lang.reflect.Array;
 
 public class Main3 {
@@ -81,6 +82,9 @@ public class Main3 {
         System.out.println("Задание 5");
         ArrayCreator zadacha = new ArrayCreator();
         zadacha.arrayConvert(zadacha.arrayCreat(9));
+        System.out.println();
+        System.out.println("Вариант без вложенных циклов");
+        zadacha.preobrazArr(zadacha.arrayCreat(8));
 
     }
 
