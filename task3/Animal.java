@@ -1,6 +1,6 @@
 package task3;
 
-public class Animal {
+abstract public class Animal {
     String name;
     double age;
     static int quantity;
@@ -20,8 +20,11 @@ public class Animal {
         return age;
     }
 
-    public void voice(){
-        System.out.println("зверушка подает голос");
+
+    abstract public void voice();
+
+    public void dyingVoice() {
+        System.out.println();
     }
 
     public static int getQuantity() {
@@ -29,7 +32,18 @@ public class Animal {
     }
 
     public String toString() {
-        voice();
-        return age + " " + name;
+        return getClass() + " " + name + " " + age;
     }
+
+    @Override
+    public boolean equals(final Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        final Animal animal = (Animal) obj;
+
+        if (age != animal.age) return false;
+        return name != null ? name.equals(animal.name) : animal.name == null;
+    }
+
 }
