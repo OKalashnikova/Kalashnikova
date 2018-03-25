@@ -56,7 +56,10 @@ public class Main4 {
         Animal[] array = {dog4, cat8, cat10, fish1, fish2, dog6, fish3};
 
         for (int i=0; i<array.length; i++){
-                array[i].voice();
+                try {
+                    array[i].voice();
+                }catch (Exception e){
+                throw new NotImplementedException();}
        }
         System.out.println("Попытки заговорить с рыбой были " + Fish.getCount() + " раза");
 
@@ -84,3 +87,6 @@ public class Main4 {
     }
 
 }
+
+
+//http://qaru.site/questions/15992/why-does-notimplementedexception-exist

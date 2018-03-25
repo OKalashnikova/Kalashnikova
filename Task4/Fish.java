@@ -11,10 +11,10 @@ public class Fish extends Animal {
     }
 
     public void voice() {
-        try{
+//        try{
             count++;
-        }catch (Exception e){
-        throw new NotImplementedException();}
+//        }catch (Exception e){
+//        throw new NotImplementedException();}
     }
 
     public static int getCount() {
