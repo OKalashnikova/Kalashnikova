@@ -9,7 +9,7 @@ public class Fish extends Animal {
         super(name, age);
     }
 
-    public void voice() throws NotImplementedException {
+    public void voice(){
         throw new NotImplementedException();
     }
 }

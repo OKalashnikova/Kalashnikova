@@ -40,10 +40,10 @@ public class Main4 {
         // Сделать так, чтобы метод вызывался на животном перед его уничтожением сборщиком мусора.
         // Спровоцировать выполнение сборщика мусора(создать очень много объектов, на которые нет ссылок).
         // Убедиться, что животных слышно перед смертью.
-        for (int i=0; i<1000000; i++){
-            new Cat("Pufic", 0.1);
-            new Dog("Artemon", 15.0);
-        }
+//        for (int i=0; i<1000000; i++){
+//            new Cat("Pufic", 0.1);
+//            new Dog("Artemon", 15.0);
+//        }
 
         System.out.println();
         System.out.println("Задание 4");
@@ -75,9 +75,6 @@ public class Main4 {
                 array[i].voice();
             } catch (NotImplementedException e) {
                 count++;
-                throw new NotImplementedException();
-            }finally {
-                continue;
             }
         }
         System.out.println("Попытки заговорить с рыбой были " + count + " раза");
