@@ -1,4 +1,4 @@
-import Task4.Fish;
+import task4.Fish;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import task3.Animal;
 import task3.Cat;
@@ -14,12 +14,12 @@ public class Main4 {
 
         Cat cat8 = new Cat("Барбарис", 1.2);
         Cat cat9 = new Cat("Барбарис", 1.2);
-        System.out.println("Имена одного кота "+ cat8.getName() + " и второго " + cat9.getName() + " а так же их возраст " +
+        System.out.println("Имена одного кота " + cat8.getName() + " и второго " + cat9.getName() + " а так же их возраст " +
                 cat8.getAge() + " и " + cat9.getAge() + " являются " + cat8.equals(cat9));
 
         Dog dog4 = new Dog("Атос", 5.8);
         Dog dog5 = new Dog("Атос", 5.8);
-        System.out.println("Имена одной собаки "+ dog4.getName() + " и второй " + dog5.getName() + " а так же их возраст " +
+        System.out.println("Имена одной собаки " + dog4.getName() + " и второй " + dog5.getName() + " а так же их возраст " +
                 dog4.getAge() + " и " + dog5.getAge() + " являются " + dog4.equals(dog5));
 
         System.out.println("");
@@ -30,6 +30,20 @@ public class Main4 {
         Dog dog6 = new Dog("Сапер", 4.0);
         System.out.println(cat10.toString());
         System.out.println(dog6.toString());
+
+
+        System.out.println();
+        System.out.println("Задание 3");
+        System.out.println("----------");
+        //Создать реализации метода void dyingVoice() в Cat и Dog.
+        // Метод должен печатать на консоль звук, издаваемый животным перед смертью(можно выбрать любой).
+        // Сделать так, чтобы метод вызывался на животном перед его уничтожением сборщиком мусора.
+        // Спровоцировать выполнение сборщика мусора(создать очень много объектов, на которые нет ссылок).
+        // Убедиться, что животных слышно перед смертью.
+        for (int i=0; i<1000000; i++){
+            new Cat("Pufic", 0.1);
+            new Dog("Artemon", 15.0);
+        }
 
         System.out.println();
         System.out.println("Задание 4");
@@ -55,34 +69,23 @@ public class Main4 {
 
         Animal[] array = {dog4, cat8, cat10, fish1, fish2, dog6, fish3};
 
-        for (int i=0; i<array.length; i++){
-                try {
-                    array[i].voice();
-                }catch (Exception e){
-                throw new NotImplementedException();}
-       }
-        System.out.println("Попытки заговорить с рыбой были " + Fish.getCount() + " раза");
-
-
-        System.out.println();
-        System.out.println("Задание 3");
-        System.out.println("----------");
-        //Создать реализации метода void dyingVoice() в Cat и Dog.
-        // Метод должен печатать на консоль звук, издаваемый животным перед смертью(можно выбрать любой).
-        // Сделать так, чтобы метод вызывался на животном перед его уничтожением сборщиком мусора.
-        // Спровоцировать выполнение сборщика мусора(создать очень много объектов, на которые нет ссылок).
-        // Убедиться, что животных слышно перед смертью.
-        for (int i=0; i<10000; i++){
-            new Cat("Pufic", 0.1);
-            new Dog("Artemon", 15.0);
+        int count = 0;
+        for (int i = 0; i < array.length; i++) {
+            try {
+                array[i].voice();
+            } catch (NotImplementedException e) {
+                count++;
+                throw new NotImplementedException();
+            }finally {
+                continue;
+            }
         }
-        System.gc();
+        System.out.println("Попытки заговорить с рыбой были " + count + " раза");
 
     }
 
 
-
-    public static Class<?> getType(Object o){
+    public static Class<?> getType(Object o) {
         return o.getClass();
     }
 

@@ -1,5 +1,7 @@
 package task3;
 
+import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+
 abstract public class Animal {
     String name;
     double age;
@@ -21,7 +23,7 @@ abstract public class Animal {
     }
 
 
-    abstract public void voice();
+    abstract public void voice() throws NotImplementedException;
 
     public void dyingVoice() {
         System.out.println();
