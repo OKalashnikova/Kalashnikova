@@ -47,6 +47,8 @@ public class Main5 {
         System.out.println("Размер списка " + list.size());
         System.out.println("Удаление  из списка пользователя " + user4.toString() + " " + list.remove(user4));
         System.out.println("Размер списка " + list.size());
+        System.out.println("isEmpty? " + list.isEmpty());
         System.out.println(list.toString());
+
     }
 }
