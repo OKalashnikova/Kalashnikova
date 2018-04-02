@@ -1,9 +1,10 @@
 package task5;
 
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.junit.Assert.assertEquals;
 
 public class UserLinkedListTest {
 
@@ -27,7 +28,7 @@ public class UserLinkedListTest {
 
     @Test
     public void contains(){
-        Assert.assertEquals(user1, listTest.contains(user1));
+       assertEquals(true, listTest.contains(user1));
     }
 
 }
