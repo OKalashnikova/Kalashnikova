@@ -5,7 +5,7 @@ import task5.UserLinkedList;
 
 public class Main5 {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         //Написать алгоритм бинарного поиска:
         //int binarySearch(int [] data, int element); <- Ищет элемент element в data, возвращает индекс искомого элемента,
@@ -31,7 +31,7 @@ public class Main5 {
         System.out.println();
         System.out.println("Задание 2");
         System.out.println("-----------");
-        UserLinkedList list = new UserLinkedList();
+        UserLinkedList<User> list = new UserLinkedList();
         User user1 = new User("Vasya", 01);
         User user2 = new User("Inna", 02);
         User user3 = new User("Ganna", 03);
@@ -47,8 +47,19 @@ public class Main5 {
         System.out.println("Размер списка " + list.size());
         System.out.println("Удаление  из списка пользователя " + user4.toString() + " " + list.remove(user4));
         System.out.println("Размер списка " + list.size());
-        System.out.println("isEmpty? " + list.isEmpty());
-        System.out.println(list.toString());
+        System.out.println("Вызываем метод isEmpty? " + list.isEmpty());
+        System.out.println("В списке остались такие объекты: ");
+        for(User u : list)
+        System.out.println(u.toString());
 
+        System.out.println();
+        System.out.println("Задание 3");
+        System.out.println("-----------");
+        System.out.println("Тесты находятся в пакете task5, класс - UserLinkedListTest");
+
+
+        System.out.println();
+        System.out.println("Задание 4");
+        System.out.println("-----------");
     }
 }
