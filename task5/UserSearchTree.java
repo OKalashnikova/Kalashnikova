@@ -32,10 +32,10 @@ public class UserSearchTree<E> {
 
     //// ADD
     public boolean add(int key, E value) {
-        if (size == 0){
+        if (size == 0) {
             root = new Node(key, value, null, null, null);
             size++;
-        }else{
+        } else {
             addTo(root, null, key, value);
             size++;
         }
@@ -44,15 +44,15 @@ public class UserSearchTree<E> {
 
     void addTo(Node t, Node p, int key, E value) {
         if (key < t.key) {
-            if(t.left == null){
+            if (t.left == null) {
                 t.left = new Node(key, value, t, null, null);
-            }else {
+            } else {
                 addTo(t.left, t, key, value);
             }
         } else if (key > t.key) {
-            if(t.right == null){
+            if (t.right == null) {
                 t.right = new Node(key, value, t, null, null);
-            }else {
+            } else {
                 addTo(t.right, t, key, value);
             }
 
@@ -63,26 +63,40 @@ public class UserSearchTree<E> {
     }
 
     //// CONTAINS
-    boolean contains(Node node, E value) {
-        if (node == null) return false;
-        if (node.value == value) return true;
-        for (int i = 0; i < size; i++) {
-            if (node.left != null) {
-                if (node.left.value == value){
-                return true;
-                }
-                else return contains(node.left, value);
-            } else if (node.right != null) {
-                if (node.right.value == value) return true;
-                else return contains(node.right, value);
+    Node containsL(Node node, E value) {
+        if (node == null) return null;
+        if (node.value == value) return node;
+        if (node.left != null) {
+            if (node.left.value == value) {
+                return node.left;
+//            } else {
+//                contains(node.left, value);
+//            }
+//        } else if (node.right != null) {
+//            if (node.right.value == value) return node.right;
+//            else contains(node.right, value);
             }
+        }return null;
+    }
 
-        }
-        return false;
+    Node containsR(Node node, E value) {
+        if (node == null) return null;
+        if (node.value == value) return node;
+        if (node.right != null) {
+            if (node.right.value == value) {
+                return node.right;
+            }
+        }return null;
     }
 
     public boolean contains(E value) {
-        return contains(root, value);
+        Node nL = containsL(root, value);
+        Node nR = containsR(root, value);
+        if (nL == null && nR == null) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     //// ISEMPTY
@@ -93,49 +107,47 @@ public class UserSearchTree<E> {
 
     /// REMOVE
 
-    Node leftKey(Node node, int findKey){
-        if(node.key > findKey)
-        return leftKey(node.left, findKey);
-        if(node.key == findKey) return node;
+    Node leftKey(Node node, int findKey) {
+        if (node.key > findKey)
+            return leftKey(node.left, findKey);
+        if (node.key == findKey) return node;
         else return null;
     }
 
-    Node rightKey(Node node, int findKey){
-        if(node.key > findKey)
+    Node rightKey(Node node, int findKey) {
+        if (node.key > findKey)
             return rightKey(node.right, findKey);
         else return node;
     }
 
-    Node removeFind(int key){
+    Node removeFind(int key) {
         Node find = root;
-        if(find.key > key){
-           leftKey(find, key);
-          if(find.key == key) return find;
-          if(find.key < key){
-              rightKey(find, key);
-              if(find.key == key) return find;
-          }
+        if (find.key > key) {
+            leftKey(find, key);
+            if (find.key == key) return find;
+            if (find.key < key) {
+                rightKey(find, key);
+                if (find.key == key) return find;
+            }
         }
         return find;
     }
 
-   public boolean remove(int key){
+    public boolean remove(int key) {
         Node found = removeFind(key);
-        if(found.left == null && found.right == null){
+        if (found.left == null && found.right == null) {
             found = null;
             --size;
             return true;
-        }
-        else if(found.left != null && found.right == null){
+        } else if (found.left != null && found.right == null) {
             found.left.parent = found.parent;
             found = null;
-        }
-        else if(found.left == null && found.right != null){
-            if(found.right.left == null){
+        } else if (found.left == null && found.right != null) {
+            if (found.right.left == null) {
                 found.right.parent = found.parent;
                 found = null;
                 --size;
-            }else{
+            } else {
                 Node leaf = findRightLeaf(found.right.left);
                 leaf.parent = found.parent;
                 leaf.right = found.right;
@@ -147,15 +159,15 @@ public class UserSearchTree<E> {
         }
 
         return false;
-   }
+    }
 
-   Node findRightLeaf(Node node){
-       if(node.right == null){
-           return node;
-       }else{
-           return findRightLeaf(node.right);
-       }
-   }
+    Node findRightLeaf(Node node) {
+        if (node.right == null) {
+            return node;
+        } else {
+            return findRightLeaf(node.right);
+        }
+    }
 
 
     void print(Node t) {
