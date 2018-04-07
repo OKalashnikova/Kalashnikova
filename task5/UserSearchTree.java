@@ -1,0 +1,188 @@
+package task5;
+
+import java.util.LinkedList;
+import java.util.List;
+
+public class UserSearchTree<E> {
+
+    Node root;
+    private List list;
+    public int size;
+
+    public class Node {
+        int key;
+        E value;
+        Node left;
+        Node right;
+        Node parent;
+
+
+        public Node(int key, E value, Node parent, Node left, Node right) {
+            this.key = key;
+            this.value = value;
+            this.parent = parent;
+            this.left = left;
+            this.right = right;
+        }
+
+        public E getValue() {
+            return value;
+        }
+    }
+
+    public UserSearchTree() {
+        this.root = root;
+        this.list = new LinkedList();
+    }
+
+    //// ADD
+    public boolean add(int key, E value) {
+        if (size == 0){
+            root = new Node(key, value, null, null, null);
+            size++;
+        }else{
+            addTo(root, null, key, value);
+            size++;
+        }
+        return true;
+    }
+
+    Node addTo(Node t, Node p, int key, E value) {
+        if (key < t.key) {
+            if(t.left == null){
+                return t.left = new Node(key, value, t, null, null);
+            }else {
+                t.left = addTo(t.left, t, key, value);
+            }
+        } else if (key > t.key) {
+            if(t.right == null){
+                return t.right = new Node(key, value, t, null, null);
+            }else {
+                t.right = addTo(t.right, t, key, value);
+            }
+
+        } else {
+            System.out.println("Exist key " + key);
+            --size;
+        }
+
+        return null;
+    }
+
+    //// CONTAINS
+    boolean contains(Node node, E value) {
+        if (node == null) return false;
+        if (node.value == value) return true;
+        for (int i = 0; i < size; i++) {
+            if (node.left != null) {
+                if (node.left.value == value){
+                return true;
+                }
+                else return contains(node.left, value);
+            } else if (node.right != null) {
+                if (node.right.value == value) return true;
+                else return contains(node.right, value);
+            }
+
+        }
+        return false;
+    }
+
+    public boolean contains(E value) {
+        return contains(root, value);
+    }
+
+    //// ISEMPTY
+    public boolean isEmpty() {
+        if (size() == 0) return true;
+        else return false;
+    }
+
+    /// REMOVE
+
+    Node leftKey(Node node, int findKey){
+        if(node.key > findKey)
+        return leftKey(node.left, findKey);
+        if(node.key == findKey) return node;
+        else return null;
+    }
+
+    Node rightKey(Node node, int findKey){
+        if(node.key > findKey)
+            return rightKey(node.right, findKey);
+        else return node;
+    }
+
+    Node removeFind(int key){
+        Node find = root;
+        if(find.key > key){
+           leftKey(find, key);
+          if(find.key == key) return find;
+          if(find.key < key){
+              rightKey(find, key);
+              if(find.key == key) return find;
+          }
+        }
+        return find;
+    }
+
+   public boolean remove(int key){
+        Node found = removeFind(key);
+        if(found.left == null && found.right == null){
+            found = null;
+            --size;
+            return true;
+        }
+        else if(found.left != null && found.right == null){
+            found.left.parent = found.parent;
+            found = null;
+        }
+        else if(found.left == null && found.right != null){
+            if(found.right.left == null){
+                found.right.parent = found.parent;
+                found = null;
+                --size;
+            }else{
+                Node leaf = findRightLeaf(found.right.left);
+                leaf.parent = found.parent;
+                leaf.right = found.right;
+                leaf.left = found.left;
+                found = null;
+                --size;
+                return true;
+            }
+        }
+
+        return false;
+   }
+
+   Node findRightLeaf(Node node){
+       if(node.right == null){
+           return node;
+       }else{
+           return findRightLeaf(node.right);
+       }
+   }
+
+
+    void print(Node t) {
+        if (t != null) {
+            print(t.left);
+            System.out.print("key: " + t.key + " value: " + t.value + " " + "\n");
+            print(t.right);
+        }
+    }
+
+    public void print() {
+        print(root);
+        System.out.println();
+    }
+
+    //// SIZE
+    public int size() {
+        return size;
+    }
+
+}
+
+

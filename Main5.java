@@ -1,6 +1,7 @@
 import task5.BinarySearch;
 import task5.User;
 import task5.UserLinkedList;
+import task5.UserSearchTree;
 
 
 public class Main5 {
@@ -61,5 +62,40 @@ public class Main5 {
         System.out.println();
         System.out.println("Задание 4");
         System.out.println("-----------");
+
+        UserSearchTree<User> tree = new UserSearchTree();
+        System.out.println("Пустое ли дерево? " + tree.isEmpty());
+        System.out.println();
+        System.out.println("Добавляем элементы: ");
+        System.out.println(tree.add(3, user1));
+        System.out.println(tree.add(2, user2));
+        System.out.println(tree.add(4, user3));
+        System.out.println(tree.add(-5, user5));
+        tree.print();
+
+        System.out.println();
+        System.out.println("Проверяем на наличие такого элемента " + user3.toString());
+        System.out.println(tree.contains(user3));
+
+        System.out.println();
+        System.out.println("Проверяем на наличие такого элемента " + user4.toString());
+        System.out.println(tree.contains(user4));
+
+        System.out.println();
+        System.out.println("Размер бинарного дерева " + tree.size());
+
+        System.out.println("\n" + "Пустое ли дерево? " + tree.isEmpty());
+
+
+
+
+
+
+//        tree.print();
+//        tree.remove(2);
+//        tree.remove(3);
+//        tree.print();
+//        tree.remove(4);
+
     }
 }
