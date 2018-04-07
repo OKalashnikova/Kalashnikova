@@ -76,7 +76,8 @@ public class UserSearchTree<E> {
 //            if (node.right.value == value) return node.right;
 //            else contains(node.right, value);
             }
-        }return null;
+        }
+        return null;
     }
 
     Node containsR(Node node, E value) {
@@ -86,7 +87,8 @@ public class UserSearchTree<E> {
             if (node.right.value == value) {
                 return node.right;
             }
-        }return null;
+        }
+        return null;
     }
 
     public boolean contains(E value) {
@@ -120,21 +122,32 @@ public class UserSearchTree<E> {
         else return node;
     }
 
-    Node removeFind(int key) {
-        Node find = root;
-        if (find.key > key) {
-            leftKey(find, key);
-            if (find.key == key) return find;
-            if (find.key < key) {
-                rightKey(find, key);
-                if (find.key == key) return find;
-            }
+//    Node removeFind(int key) {
+//        Node find = root;
+//        if (find.key > key) {
+//            leftKey(find, key);
+//            if (find.key == key) return find;
+//            if (find.key < key) {
+//                rightKey(find, key);
+//                if (find.key == key) return find;
+//            }
+//        }
+//        return find;
+//    }
+
+    Node f(Node node, int key) {
+        if (node.key == key) return node;
+        if (node.key > key) {
+            f(node.left, key);
         }
-        return find;
+        if (node.key < key) {
+            f(node.right, key);
+        }
+        return node;
     }
 
     public boolean remove(int key) {
-        Node found = removeFind(key);
+        Node found = f(root, key);
         if (found.left == null && found.right == null) {
             found = null;
             --size;
@@ -142,13 +155,17 @@ public class UserSearchTree<E> {
         } else if (found.left != null && found.right == null) {
             found.left.parent = found.parent;
             found = null;
-        } else if (found.left == null && found.right != null) {
-            if (found.right.left == null) {
-                found.right.parent = found.parent;
-                found = null;
-                --size;
-            } else {
-                Node leaf = findRightLeaf(found.right.left);
+            return true;
+        } else if (found.right != null && found.right.left == null) {
+            found.right.parent = found.parent;
+            found = null;
+            --size;
+            return true;
+        } else if (found.right != null && found.right.left != null) {
+            Node leaf = found.right.left;
+            if(leaf.left != null) {
+                leaf = leaf.left;
+            }else {
                 leaf.parent = found.parent;
                 leaf.right = found.right;
                 leaf.left = found.left;

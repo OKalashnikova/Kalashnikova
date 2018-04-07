@@ -86,16 +86,8 @@ public class Main5 {
 
         System.out.println("\n" + "Пустое ли дерево? " + tree.isEmpty());
 
-
-
-
-
-
-//        tree.print();
-//        tree.remove(2);
-//        tree.remove(3);
-//        tree.print();
-//        tree.remove(4);
+        System.out.println("Удаляем объект " + tree.remove(2));
+        System.out.println("Размер бинарного дерева после удаления объекта " + tree.size());
 
     }
 }
