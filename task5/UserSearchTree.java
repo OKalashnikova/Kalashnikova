@@ -1,12 +1,8 @@
 package task5;
 
-import java.util.LinkedList;
-import java.util.List;
-
 public class UserSearchTree<E> {
 
     Node root;
-    private List list;
     public int size;
 
     public class Node {
@@ -32,7 +28,6 @@ public class UserSearchTree<E> {
 
     public UserSearchTree() {
         this.root = root;
-        this.list = new LinkedList();
     }
 
     //// ADD
@@ -47,26 +42,24 @@ public class UserSearchTree<E> {
         return true;
     }
 
-    Node addTo(Node t, Node p, int key, E value) {
+    void addTo(Node t, Node p, int key, E value) {
         if (key < t.key) {
             if(t.left == null){
-                return t.left = new Node(key, value, t, null, null);
+                t.left = new Node(key, value, t, null, null);
             }else {
-                t.left = addTo(t.left, t, key, value);
+                addTo(t.left, t, key, value);
             }
         } else if (key > t.key) {
             if(t.right == null){
-                return t.right = new Node(key, value, t, null, null);
+                t.right = new Node(key, value, t, null, null);
             }else {
-                t.right = addTo(t.right, t, key, value);
+                addTo(t.right, t, key, value);
             }
 
         } else {
             System.out.println("Exist key " + key);
             --size;
         }
-
-        return null;
     }
 
     //// CONTAINS
