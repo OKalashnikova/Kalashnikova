@@ -30,6 +30,10 @@ public class UserSearchTree<E> {
         this.root = root;
     }
 
+    public Node getRoot() {
+        return root;
+    }
+
     //// ADD
     public boolean add(int key, E value) {
         if (size == 0) {
@@ -69,12 +73,6 @@ public class UserSearchTree<E> {
         if (node.left != null) {
             if (node.left.value == value) {
                 return node.left;
-//            } else {
-//                contains(node.left, value);
-//            }
-//        } else if (node.right != null) {
-//            if (node.right.value == value) return node.right;
-//            else contains(node.right, value);
             }
         }
         return null;
@@ -122,18 +120,6 @@ public class UserSearchTree<E> {
         else return node;
     }
 
-//    Node removeFind(int key) {
-//        Node find = root;
-//        if (find.key > key) {
-//            leftKey(find, key);
-//            if (find.key == key) return find;
-//            if (find.key < key) {
-//                rightKey(find, key);
-//                if (find.key == key) return find;
-//            }
-//        }
-//        return find;
-//    }
 
     Node f(Node node, int key) {
         if (node.key == key) return node;
@@ -178,15 +164,23 @@ public class UserSearchTree<E> {
         return false;
     }
 
-    Node findRightLeaf(Node node) {
-        if (node.right == null) {
-            return node;
-        } else {
+    /// THE BIGGEST && THE LESS KEY
+
+    public int findRightLeaf(Node node) {
+        if (node.right != null) {
             return findRightLeaf(node.right);
         }
+        return node.key;
     }
 
+    public int findLeftLeaf(Node node) {
+        if (node.left != null) {
+            return findLeftLeaf(node.left);
+        }
+        return node.key;
+    }
 
+//// PRINT
     void print(Node t) {
         if (t != null) {
             print(t.left);

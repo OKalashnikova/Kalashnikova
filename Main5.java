@@ -73,6 +73,9 @@ public class Main5 {
         System.out.println(tree.add(-5, user5));
         tree.print();
 
+        System.out.println("Поиск максимального ключа: " + tree.findRightLeaf(tree.getRoot()));
+        System.out.println("Поиск минимального ключа: " + tree.findLeftLeaf(tree.getRoot()));
+
         System.out.println();
         System.out.println("Проверяем на наличие такого элемента " + user3.toString());
         System.out.println(tree.contains(user3));
@@ -88,6 +91,8 @@ public class Main5 {
 
         System.out.println("Удаляем объект " + tree.remove(2));
         System.out.println("Размер бинарного дерева после удаления объекта " + tree.size());
+
+
 
     }
 }

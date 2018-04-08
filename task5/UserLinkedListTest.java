@@ -56,5 +56,4 @@ public class UserLinkedListTest {
         boolean remove = listTest.remove(user2);
         assertTrue(remove);
     }
-
 }
