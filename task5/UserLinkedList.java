@@ -6,7 +6,7 @@ import java.util.Iterator;
 public class UserLinkedList<E> implements Iterable<E> {
     private Node<E> first;
     private Node<E> last;
-    static int size;
+    public int size;
 
     public UserLinkedList() {
         last = new Node<E>(null, first, null);
@@ -107,7 +107,7 @@ public class UserLinkedList<E> implements Iterable<E> {
         return false;
     }
 
-    public static int size() {
+    public int size() {
         return size;
     }
 

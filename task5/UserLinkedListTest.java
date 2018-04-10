@@ -15,7 +15,7 @@ public class UserLinkedListTest {
 
     @Before
     public void load() {
-        UserLinkedList.size = 0;
+
         listTest = new UserLinkedList<>();
         listTest.add(user1);
         listTest.add(user2);
