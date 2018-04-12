@@ -39,7 +39,7 @@ public class UserSearchTree<E> {
             size++;
         } else if (root != null) {
             addTo(root, null, key, value);
-            if (oldSize== size) {
+            if (oldSize == size) {
                 return false;
             }
         }
@@ -92,13 +92,17 @@ public class UserSearchTree<E> {
 
     public boolean contains(Node t, int key) {
         Node contains = f(t, key);
-        if(contains == null){
+        if (contains == null) {
             return false;
-        }
-       else return true;
+        } else return true;
     }
 
-
+    public E getValue(Node t, int key) {
+        Node contains = f(t, key);
+        if (contains == null) {
+            return null;
+        } else return contains.value;
+    }
 
     //// ISEMPTY
     public boolean isEmpty() {
@@ -113,8 +117,7 @@ public class UserSearchTree<E> {
             }
             if (node.key < key) {
                 node = node.right;
-            }
-            else return node;
+            } else return node;
         }
         return null;
     }
@@ -127,7 +130,7 @@ public class UserSearchTree<E> {
         }
         if (found.left == null && found.right == null) {
             Node par = found.parent;
-            if(found.key >par.key) par.right = null;
+            if (found.key > par.key) par.right = null;
             else par.left = null;
             --size;
             return true;
@@ -137,28 +140,23 @@ public class UserSearchTree<E> {
             par.left = found.left;
             --size;
             return true;
-        } else if (found.right != null && found.right.left == null) {
-            found.right.parent = found.parent;
-            Node par = found.parent;
-            par.right = found.right;
-            --size;
-            return true;
-        } else if (found.right != null && found.right.left != null) {
+        } else if (found.right != null && found.left == null || found.right != null && found.left != null) { /// pomenyat
             Node leaf = found.right.left;
-            if(leaf.left != null) {
+            while (leaf.left != null) {
                 leaf = leaf.left;
-            }else {
+            }
                 Node leafParentNull = leaf.parent;
                 leafParentNull.left = null;
                 leaf.parent = found.parent;
                 leaf.right = found.right;
                 leaf.left = found.left;
+                found.left.parent = leaf;
                 Node par = found.parent;
                 par.right = leaf;
                 --size;
                 return true;
             }
-        }
+
 
         return false;
     }

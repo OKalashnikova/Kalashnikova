@@ -70,9 +70,9 @@ public class Main5 {
         System.out.println(tree.add(3, user1));
         System.out.println(tree.add(2, user2));
         System.out.println(tree.add(4, user3));
-        System.out.println(tree.add(-5, user5));
+        System.out.println(tree.add(0, user5));
         System.out.println(tree.add(2, user2));
-        System.out.println(tree.add(-5, user5));
+        System.out.println(tree.add(0, user5));
         tree.print();
 
         System.out.println("Поиск максимального ключа: " + tree.findRightLeaf(tree.getRoot()));
@@ -92,9 +92,9 @@ public class Main5 {
         System.out.println("\n" + "Пустое ли дерево? " + tree.isEmpty());
         System.out.println();
 
-//        System.out.println("Удаляем объект " + tree.remove(2));
-//        System.out.println("Размер бинарного дерева после удаления объекта " + tree.size());
-//        System.out.println();
+        System.out.println("Удаляем объект " + tree.remove(2));
+        System.out.println("Размер бинарного дерева после удаления объекта " + tree.size());
+        System.out.println();
 
         System.out.println("Удаляем не существующий объект " + tree.remove(8));
         System.out.println("Размер бинарного дерева после удаления объекта " + tree.size());
@@ -102,8 +102,10 @@ public class Main5 {
         tree.print();
         System.out.println();
 
-        //System.out.println("Удаляем существующий объект " + tree.remove(-5));
-        System.out.println("Удаляем не существующий объект " + tree.remove(-20));
+        System.out.println("Удаляем не существующий объект " + tree.remove(1));
+        System.out.println();
+        System.out.println("Удаляем не существующий объект " + tree.remove(20));
+        System.out.println();
         System.out.println("Размер бинарного дерева после удаления объекта " + tree.size());
         tree.print();
 
