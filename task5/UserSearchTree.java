@@ -4,7 +4,6 @@ public class UserSearchTree<E> {
 
     Node root;
     public int size;
-    public int ask;
 
     public class Node {
         int key;
@@ -34,17 +33,14 @@ public class UserSearchTree<E> {
 
     //// ADD
     public boolean add(int key, E value) {
-        ask = 0;
-        //Node t = root;
+        int oldSize = size;
         if (root == null) {
             root = new Node(key, value, null, null, null);
             size++;
         } else if (root != null) {
             addTo(root, null, key, value);
-            if (ask == -1) {
+            if (oldSize== size) {
                 return false;
-            } else {
-                size++;
             }
         }
         return true;
@@ -52,18 +48,19 @@ public class UserSearchTree<E> {
 
     void addTo(Node t, Node p, int key, E value) {
         if (key == t.key) {
-            ask = -1;
             System.out.println("Exist key " + key);
         }
         if (key < t.key) {
             if (t.left == null) {
                 t.left = new Node(key, value, t, null, null);
+                size++;
             } else {
                 addTo(t.left, t, key, value);
             }
         } else if (key > t.key) {
             if (t.right == null) {
                 t.right = new Node(key, value, t, null, null);
+                size++;
             } else {
                 addTo(t.right, t, key, value);
             }
@@ -71,27 +68,37 @@ public class UserSearchTree<E> {
     }
 
     //// CONTAINS
-    public boolean contains(Node node, E value) {
+//    public boolean contains(Node node, E value) {
+//
+//    if(containsL(node, value)) {
+//        return false;
+//    }else
+//   return containsR(node, value);
+//
+//
+//}
+//
+//    boolean containsL(Node node, E value) {
+//        if (node.value == value) return true;
+//        if (node.left != null) return containsL(node.left, value);
+//        else return false;
+//    }
+//
+//    boolean containsR(Node node, E value) {
+//        if (node.value == value) return true;
+//        if (node.right != null) return containsR(node.right, value);
+//        else return false;
+//    }
 
-    if(containsL(node, value)) {
-        return false;
-    }else
-   return containsR(node, value);
-
-
-}
-
-    boolean containsL(Node node, E value) {
-        if (node.value == value) return true;
-        if (node.left != null) return containsL(node.left, value);
-        else return false;
+    public boolean contains(Node t, int key) {
+        Node contains = f(t, key);
+        if(contains == null){
+            return false;
+        }
+       else return true;
     }
 
-    boolean containsR(Node node, E value) {
-        if (node.value == value) return true;
-        if (node.right != null) return containsR(node.right, value);
-        else return false;
-    }
+
 
     //// ISEMPTY
     public boolean isEmpty() {

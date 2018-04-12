@@ -79,12 +79,12 @@ public class Main5 {
         System.out.println("Поиск минимального ключа: " + tree.findLeftLeaf(tree.getRoot()));
 
         System.out.println();
-        System.out.println("Проверяем на наличие такого элемента " + user3.toString());
-        System.out.println(tree.contains(tree.getRoot(), user3));
+        System.out.println("Проверяем на наличие такого элемента " + 2);
+        System.out.println(tree.contains(tree.getRoot(), 2));
 
         System.out.println();
-        System.out.println("Проверяем на наличие такого элемента " + user4.toString());
-        System.out.println(tree.contains(tree.getRoot(), user4));
+        System.out.println("Проверяем на наличие такого элемента " + 6);
+        System.out.println(tree.contains(tree.getRoot(), 6));
 
         System.out.println();
         System.out.println("Размер бинарного дерева " + tree.size());
