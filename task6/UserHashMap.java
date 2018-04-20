@@ -1,16 +1,13 @@
 package task6;
 
 
-import java.util.LinkedList;
-
-
 public class UserHashMap<K, V> {
     Node<K, V>[] table;
     public int countKeys;
     private int threshold;
 
     // На тот случай, если под одним ключом будет храниться несколько объектов
-    public LinkedList<Node> list = new LinkedList();
+    //public LinkedList<Node> list = new LinkedList();
 
 
     public UserHashMap(int i) {
@@ -26,16 +23,6 @@ public class UserHashMap<K, V> {
 
     public int setThreshold(int threshold) {
         return this.threshold = threshold;
-    }
-
-
-    public String linkToString(LinkedList link) {
-        Node<K, V> current = list.getFirst();
-        while (current != null) {
-            System.out.println(current.toString());
-            current = current.next;
-        }
-        return "";
     }
 
 
@@ -92,7 +79,7 @@ public class UserHashMap<K, V> {
     }
 
     // Использовала возвращение String, чтобы вывести на экран значения LinkedList
-    public String get(K key) {
+    public Node get(K key, V value) {
         if (key == null) return null;
         int hash = hash(key);
         if (table[hash] == null) {
@@ -100,22 +87,29 @@ public class UserHashMap<K, V> {
             return null;
         } else {
             Node node = table[hash];
-            if (node.key == key && node.next == null) {
-                list.add(node);
-                return linkToString(list);
+            if (node.key == key && node.next == null && node.value.equals(value)) {
+                return node;
             } else {
                 while (node != null) {
-                    list.add(node);
-                    node = node.next;
+                    if (node.value.equals(value)) return node;
+                    else node = node.next;
                 }
-                return linkToString(list);
             }
 
-        }//return null;
-
-
+        }return null;
     }
 
+    public Node get(K key) {
+        if (key == null) return null;
+        int hash = hash(key);
+        if (table[hash] == null) {
+            System.out.println("объекта под таким ключом не существует" + key);
+            return null;
+        } else {
+            Node node = table[hash];
+            return node;
+         }
+    }
 
     public int getCountKeys() {
         return countKeys;

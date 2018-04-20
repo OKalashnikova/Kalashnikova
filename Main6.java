@@ -10,6 +10,7 @@ public class Main6 {
     public static User user3 = new User("Ganna", 03);
     public static User user4 = new User("Stas", 04);
     public static User user5 = new User("Tolik", 05);
+    public static User user6 =  new User("Tom", 07);
 
 
 
@@ -23,14 +24,15 @@ public class Main6 {
         userHash.put("three", user3);
         userHash.put("four", user4);
         userHash.put("five", user5);
-        userHash.put("three", new User("Tom", 07));
+        userHash.put("three", user6);
 
         System.out.println();
         System.out.println("Размер таблицы: " + userHash.getThreshold());
         System.out.println();
         System.out.println("Колличество добавленных элементов: " + userHash.getCountKeys());
         System.out.println();
-        System.out.println("Достаем объект из таблицы с заданным ключем: " );
+        System.out.println("Достаем объект из таблицы с заданным ключем и значением: " );
+        System.out.println(userHash.get("three", user6));
         System.out.println(userHash.get("three"));
         System.out.println();
 
