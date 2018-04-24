@@ -54,11 +54,10 @@ public class Main7 {
 
         System.out.println(Arrays.stream(arrayAnimals)
                 .filter((obj) -> obj.getName().charAt(0) == 'A' || obj.getName().charAt(0) == 'B' || obj.getName().charAt(0) == 'C')
-                .filter((obj) -> obj.getAge() <5)
+                .filter((obj) -> obj.getAge() < 5)
                 .limit(5)
-                .sorted((obj1, obj2) ->  Integer.compare((int)obj1.getAge(), (int)obj2.getAge()))
+                .sorted((obj1, obj2) -> Integer.compare((int) obj1.getAge(), (int) obj2.getAge()))
                 .collect(Collectors.toList()));
-
 
 
         //Написать метод, который принимает на вход массив положительных int,
@@ -81,13 +80,13 @@ public class Main7 {
         int count(String[] string);
     }
 
-    public static ArrayList<Animal> returnCollection(int [] arrayInt){
+    public static ArrayList<Animal> returnCollection(int[] arrayInt) {
         List<Animal> animals = new ArrayList<>();
 
         Arrays.stream(arrayInt).forEach(value -> {
-            if(value%2 ==0) animals.add(new Cat("Cat", value));
+            if (value % 2 == 0) animals.add(new Cat("Cat", value));
             else animals.add(new Dog("Dog", value));
-        } );
+        });
 
         return (ArrayList<Animal>) animals;
     }
