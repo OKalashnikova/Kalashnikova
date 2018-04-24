@@ -2,9 +2,7 @@ import task3.Animal;
 import task3.Cat;
 import task3.Dog;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class Main7 {
@@ -25,7 +23,7 @@ public class Main7 {
         array[3] = "возвращающий int";
 
 
-        Count consumer = (String[] arr) -> {
+        Count consumer = (arr) -> {
             int sum = 0;
             for (String s : arr) sum += s.length();
             return sum;
@@ -67,7 +65,12 @@ public class Main7 {
         System.out.println();
         System.out.println("Задание 3");
         int[] arrayInt = {2, 1, 4, 5, 6, 8, 9, 3};
-        System.out.println(returnCollection(arrayInt));
+        //System.out.println(returnCollection(arrayInt));
+        System.out.println(Arrays.stream(arrayInt)
+                .mapToObj(arrayIntValue ->
+                arrayIntValue%2 == 0 ? new Cat("Cat", arrayIntValue) : new Dog("Dog", arrayIntValue))
+                .collect(Collectors.toList())
+        );
 
         System.out.println();
         System.out.println("Задание 4");
@@ -80,14 +83,14 @@ public class Main7 {
         int count(String[] string);
     }
 
-    public static ArrayList<Animal> returnCollection(int[] arrayInt) {
-        List<Animal> animals = new ArrayList<>();
-
-        Arrays.stream(arrayInt).forEach(value -> {
-            if (value % 2 == 0) animals.add(new Cat("Cat", value));
-            else animals.add(new Dog("Dog", value));
-        });
-
-        return (ArrayList<Animal>) animals;
-    }
+//    public static ArrayList<Animal> returnCollection(int[] arrayInt) {
+//        List<Animal> animals = new ArrayList<>();
+//
+//        Arrays.stream(arrayInt).forEach(value -> {
+//            if (value % 2 == 0) animals.add(new Cat("Cat", value));
+//            else animals.add(new Dog("Dog", value));
+//        });
+//
+//        return (ArrayList<Animal>) animals;
+//    }
 }
