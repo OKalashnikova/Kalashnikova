@@ -65,7 +65,7 @@ public class Main7 {
         System.out.println();
         System.out.println("Задание 3");
         int[] arrayInt = {2, 1, 4, 5, 6, 8, 9, 3};
-        //System.out.println(returnCollection(arrayInt));
+
         System.out.println(Arrays.stream(arrayInt)
                 .mapToObj(arrayIntValue ->
                 arrayIntValue%2 == 0 ? new Cat("Cat", arrayIntValue) : new Dog("Dog", arrayIntValue))
@@ -83,14 +83,4 @@ public class Main7 {
         int count(String[] string);
     }
 
-//    public static ArrayList<Animal> returnCollection(int[] arrayInt) {
-//        List<Animal> animals = new ArrayList<>();
-//
-//        Arrays.stream(arrayInt).forEach(value -> {
-//            if (value % 2 == 0) animals.add(new Cat("Cat", value));
-//            else animals.add(new Dog("Dog", value));
-//        });
-//
-//        return (ArrayList<Animal>) animals;
-//    }
 }
