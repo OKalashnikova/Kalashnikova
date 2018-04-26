@@ -2,7 +2,9 @@ package task3;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
-abstract public class Animal {
+import java.io.Serializable;
+
+abstract public class Animal implements Serializable {
     String name;
     double age;
     static int quantity;
