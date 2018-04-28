@@ -73,22 +73,24 @@ public class Main8 {
         System.out.println("Животному " + cat1.getAge() + " лет");
         TimeFly time = new TimeFly();
         time.setYears(cat1);
-        System.out.println("Прошло 4-ре года");
-        Thread y1 = new Thread(() -> time.oneYear());
-        Thread y2 = new Thread(() -> time.oneYear());
-        Thread y3 = new Thread(() -> time.oneYear());
-        Thread y4= new Thread(() -> time.oneYear());
+        System.out.println("Прошло 4 000 лет");
+
+        Thread y1 = new Thread(() -> {for (int i = 0; i < 1000; i++) time.oneYear();});
+        Thread y2 = new Thread(() -> {for (int i = 0; i < 1000; i++) time.oneYear();});
+        Thread y3 = new Thread(() -> {for (int i = 0; i < 1000; i++) time.oneYear();});
+        Thread y4= new Thread(() -> {for (int i = 0; i < 1000; i++) time.oneYear();});
         y1.start();
         //y1.sleep(1000);
-       // y1.join();
         y2.start();
         //y2.sleep(1000);
-        //y2.join();
         y3.start();
        //y3.sleep(1000);
-        //y3.join();
         y4.start();
-        //y2.sleep(1000);
+
+        y1.join();
+        y2.join();
+        y3.join();
+        y4.join();
 
         System.out.println("Животному " + time.getYears());
 
