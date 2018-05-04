@@ -6,28 +6,35 @@ import java.io.Serializable;
 
 abstract public class Animal implements Serializable {
     String name;
-    double age;
+    int age;
     long id;
+    int type;
     static int quantity;
 
 
-    public Animal(String name, double age) {
+    public Animal(){}
+
+    public Animal(String name, int age) {
         this.name = name;
         this.age = age;
         ++quantity;
     }
 
-    public Animal(String name, double age, long id) {
+    public Animal(String name, int age, long id) {
         this.name = name;
         this.age = age;
         this.id = id;
+    }
+
+    public int getType() {
+        return type;
     }
 
     public String getName() {
         return name;
     }
 
-    public double getAge() {
+    public int getAge() {
         return age;
     }
 
@@ -43,14 +50,14 @@ abstract public class Animal implements Serializable {
     }
 
     public String toString() {
-        return getClass() + " " + name + " " + age;
+        return getClass() + " " + name + " " + age + ", id" + id;
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setAge(double age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

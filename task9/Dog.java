@@ -1,13 +1,22 @@
 package task9;
 
 public class Dog extends Animal {
+    final int type = 2;
 
-    public Dog(String name, double age) {
+    public Dog(){}
+
+    public Dog(String name, int age) {
         super(name, age);
     }
 
-    public Dog(String name, double age, long id) {
+    public Dog(String name, int age, long id) {
         super(name, age, id);
+
+    }
+
+    @Override
+    public int getType() {
+        return type;
     }
 
     public void voice() {

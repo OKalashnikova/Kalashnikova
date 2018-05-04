@@ -1,11 +1,222 @@
 package task9;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-
 
 public class AnimalDao {
+    Connection con;
+
+    public AnimalDao(Connection con) {
+        this.con = con;
+    }
+
+
+    public boolean add(Animal animal) throws SQLException {
+        long maxId = 0;
+        try (PreparedStatement statement0 = con.prepareStatement("SELECT MAX (id) from animal")) {
+
+            ResultSet resultSet = statement0.executeQuery();
+            if (resultSet.next()) {
+                maxId = resultSet.getLong(1);
+                System.out.println(maxId);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        animal.setId(maxId + 1);
+        try (PreparedStatement statement = con.prepareStatement("INSERT INTO animal (id, name, age, animal_type_id) VALUES (?, ?, ?, ?)")) {
+
+            statement.setLong(1, maxId + 1);
+            statement.setString(2, animal.getName());
+            statement.setInt(3, animal.getAge());
+            statement.setLong(4, animal.getType());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            con.close();
+        }
+
+        return true;
+    }
+
+    public boolean remove(long animalId) throws SQLException {
+        long idA = 0;
+        try (PreparedStatement statement0 = con.prepareStatement("SELECT id from animal where id=?")) {
+            statement0.setLong(1, animalId);
+            ResultSet resultSet = statement0.executeQuery();
+            if (resultSet.next()) {
+                idA = resultSet.getLong(1);
+            }
+        }
+        if (idA == 0) {
+            System.out.println("Объекта с таим id " + animalId + " не существует");
+            return false;
+        } else {
+            try (PreparedStatement statement = con.prepareStatement("delete from animal where id=?")) {
+                statement.setLong(1, animalId);
+
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            } finally {
+                con.close();
+            }
+
+            return true;
+        }
+    }
+
+    public boolean update(Animal animal) throws SQLException {
+        try (PreparedStatement statment = con.prepareStatement("UPDATE animal SET name=?, age=?, animal_type_id=? WHERE id =?")) {
+            statment.setLong(4, animal.getId());
+            statment.setString(1, animal.getName());
+            statment.setInt(2, animal.getAge());
+            statment.setInt(3, animal.getType());
+
+            statment.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            con.close();
+        }
+        return false;
+    }
+
+    public Animal findById(long animalId) throws SQLException {
+        Animal newAnimal = null;
+        try (PreparedStatement statment = con.prepareStatement("SELECT id, name , age, animal_type_id FROM animal where id=?")) {
+            statment.setLong(1, animalId);
+            ResultSet resultSet = statment.executeQuery();
+            if (resultSet.next()) {
+                long idA = resultSet.getLong("id");
+                String name = resultSet.getString("name");
+                int age = resultSet.getInt(3);
+                int animalType = resultSet.getInt("animal_type_id");
+                if (animalType == 1) {
+                    newAnimal = new Cat(name, age, idA);
+
+                } else {
+                    newAnimal = new Dog(name, age, idA);
+                }
+            }
+            statment.executeQuery();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            con.close();
+        }
+        return newAnimal;
+    }
+
+    public List<Animal> findAll() throws SQLException {
+        List<Animal> list = new ArrayList<Animal>();
+        Animal animal = null;
+        try {
+            PreparedStatement statement = con.prepareStatement("select id, name, age, animal_type_id from animal");
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                long idA = rs.getLong("id");
+                String name = rs.getString("name");
+                int age = rs.getInt(3);
+                int animalType = rs.getInt("animal_type_id");
+                if (animalType == 2) {
+                    animal = new Dog(name, age, idA);
+                } else {
+                    animal = new Cat(name, age, idA);
+                }
+                list.add(animal);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            con.close();
+        }
+        return list;
+    }
+
+    public List<Animal> findByType(Object o) throws SQLException {
+        List<Animal> list = new ArrayList<Animal>();
+        Animal animal = null;
+        try {
+            PreparedStatement statement = con.prepareStatement("select id, name, age, animal_type_id from animal");
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()) {
+                long idA = rs.getLong("id");
+                String name = rs.getString("name");
+                int age = rs.getInt(3);
+                int animalType = rs.getInt("animal_type_id");
+
+                if(animalType == 1 && o == Cat.class) {
+                    animal = new Cat();
+                    animal.setId(idA);
+                    animal.setName(name);
+                    animal.setAge(age);
+                    list.add(animal);
+                }else if (animalType == 2 && o == Dog.class){
+                    animal = new Dog();
+                    animal.setId(idA);
+                    animal.setName(name);
+                    animal.setAge(age);
+                    list.add(animal);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            con.close();
+        }
+
+
+        return list;
+    }
+}
+
+
+    /*
+
+    public static Animal getAnimal() throws ClassNotFoundException, SQLException {
+        Class.forName("org.postgresql.Driver");
+        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres");
+
+        try (PreparedStatement statement = con.prepareStatement("SELECT * FROM animal WHERE id = (?)")) {
+
+            statement.setInt(1, 1);
+
+            final ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                String byName = "name: " + resultSet.getString("name");
+                int age = resultSet.getInt(3);
+                int animalType = resultSet.getInt("animal_type_id");
+                //System.out.println(byName);
+                //System.out.println("age: " + age);
+                //System.out.println("animal type id: " + animalType);
+
+
+                try (PreparedStatement statement2 = con.prepareStatement("SELECT * FROM animal_type WHERE id = (?)")) {
+                    statement2.setInt(1, animalType);
+                    final ResultSet resultSet2 = statement2.executeQuery();
+                    if (resultSet2.next()) {
+                        String type = resultSet2.getString("name");
+                        //System.out.println("animal type: " + type);
+                    }
+                }
+
+            }
+        } finally {
+            con.close();
+        }
+       // return new Cat(byName, age, animalType);
+    }
+}
+*/
+    /*
     protected List<Animal> arrayAnimal = new ArrayList<>();
     public int sizeArrayAnimal = 0;
 
@@ -89,5 +300,6 @@ public class AnimalDao {
         arrayAnimal.add(getSizeArrayAnimal(), animal);
         System.out.println("Animal " + animal.toString());
     }
+    */
 
-}
+

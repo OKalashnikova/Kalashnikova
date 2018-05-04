@@ -1,12 +1,15 @@
 package task9;
 
 public class Cat extends Animal {
+    final int type = 1;
 
-    public Cat(String name, double age) {
+    public Cat(String name, int age) {
         super(name, age);
     }
 
-    public Cat(String name, double age, long id) {
+    public Cat(){}
+
+    public Cat(String name, int age, long id) {
         super(name, age, id);
     }
 
@@ -18,6 +21,12 @@ public class Cat extends Animal {
     public void dyingVoice() {
         System.out.println("Nooooooooooo! Meeeeeeeew!");
     }
+
+    @Override
+    public int getType() {
+        return type;
+    }
+
 
     @Override
     protected void finalize() throws Throwable {
