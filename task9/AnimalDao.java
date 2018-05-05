@@ -1,38 +1,23 @@
 package task9;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AnimalDao {
-    Connection con;
 
-    public AnimalDao(Connection con) {
-        this.con = con;
+
+    public AnimalDao() {
+
     }
 
 
     public boolean add(Animal animal) throws SQLException {
-        long maxId = 0;
-        try (PreparedStatement statement0 = con.prepareStatement("SELECT MAX (id) from animal")) {
-
-            ResultSet resultSet = statement0.executeQuery();
-            if (resultSet.next()) {
-                maxId = resultSet.getLong(1);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        animal.setId(maxId + 1);
-        try (PreparedStatement statement = con.prepareStatement("INSERT INTO animal (id, name, age, animal_type_id) VALUES (?, ?, ?, ?)")) {
-
-            statement.setLong(1, maxId + 1);
-            statement.setString(2, animal.getName());
-            statement.setInt(3, animal.getAge());
-            statement.setLong(4, animal.getType());
+        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres");
+        try (PreparedStatement statement = con.prepareStatement("INSERT INTO animal ( name, age, animal_type_id) VALUES ( ?, ?, ?)")) {
+            statement.setString(1, animal.getName());
+            statement.setInt(2, animal.getAge());
+            statement.setLong(3, animal.getType());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -44,49 +29,41 @@ public class AnimalDao {
     }
 
     public boolean remove(long animalId) throws SQLException {
-        long idA = 0;
-        try (PreparedStatement statement0 = con.prepareStatement("SELECT id from animal where id=?")) {
-            statement0.setLong(1, animalId);
-            ResultSet resultSet = statement0.executeQuery();
-            if (resultSet.next()) {
-                idA = resultSet.getLong(1);
-            }
+        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres");
+        try (PreparedStatement statement = con.prepareStatement("delete from animal where id=?")) {
+            statement.setLong(1, animalId);
+            System.out.println(statement.executeUpdate());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            con.close();
         }
-        if (idA == 0) {
-            System.out.println("Объекта с таим id " + animalId + " не существует");
-            return false;
-        } else {
-            try (PreparedStatement statement = con.prepareStatement("delete from animal where id=?")) {
-                statement.setLong(1, animalId);
-
-                statement.executeUpdate();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } finally {
-                con.close();
-            }
-
-            return true;
-        }
+        return true;
     }
 
     public boolean update(Animal animal) throws SQLException {
+        int update = 0;
+        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres");
         try (PreparedStatement statment = con.prepareStatement("UPDATE animal SET name=?, age=?, animal_type_id=? WHERE id =?")) {
             statment.setLong(4, animal.getId());
             statment.setString(1, animal.getName());
             statment.setInt(2, animal.getAge());
             statment.setInt(3, animal.getType());
 
-            statment.executeUpdate();
+            update = statment.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             con.close();
         }
-        return false;
+        if(update==0){
+            return false;
+        }else
+        return true;
     }
 
     public Animal findById(long animalId) throws SQLException {
+        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres");
         Animal newAnimal = null;
         try (PreparedStatement statment = con.prepareStatement("SELECT id, name , age, animal_type_id FROM animal where id=?")) {
             statment.setLong(1, animalId);
@@ -114,6 +91,7 @@ public class AnimalDao {
     }
 
     public List<Animal> findAll() throws SQLException {
+        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres");
         List<Animal> list = new ArrayList<Animal>();
         Animal animal = null;
         try {
@@ -140,6 +118,7 @@ public class AnimalDao {
     }
 
     public List<Animal> findByType(Object o) throws SQLException {
+        Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "postgres");
         List<Animal> list = new ArrayList<Animal>();
         Animal animal = null;
         try {
@@ -151,13 +130,13 @@ public class AnimalDao {
                 int age = rs.getInt(3);
                 int animalType = rs.getInt("animal_type_id");
 
-                if(animalType == 1 && o == Cat.class) {
+                if (animalType == 1 && o == Cat.class) {
                     animal = new Cat();
                     animal.setId(idA);
                     animal.setName(name);
                     animal.setAge(age);
                     list.add(animal);
-                }else if (animalType == 2 && o == Dog.class){
+                } else if (animalType == 2 && o == Dog.class) {
                     animal = new Dog();
                     animal.setId(idA);
                     animal.setName(name);
