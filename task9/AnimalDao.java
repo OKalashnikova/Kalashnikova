@@ -22,7 +22,6 @@ public class AnimalDao {
             ResultSet resultSet = statement0.executeQuery();
             if (resultSet.next()) {
                 maxId = resultSet.getLong(1);
-                System.out.println(maxId);
             }
         } catch (SQLException e) {
             e.printStackTrace();

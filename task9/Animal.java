@@ -50,7 +50,7 @@ abstract public class Animal implements Serializable {
     }
 
     public String toString() {
-        return getClass() + " " + name + " " + age + ", id" + id;
+        return getClass() + " " + name + " " + age + " years, id" + id;
     }
 
     public void setName(String name) {
